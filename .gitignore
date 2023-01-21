@@ -36,5 +36,5 @@ out/
 ### VS Code ###
 .vscode/
 
-docker-composer-example.yml
-src/main/resources/META-INF/persistence-example.xml
+docker-composer.yml
+src/main/resources/META-INF/persistence.xml
