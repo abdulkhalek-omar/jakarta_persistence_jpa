@@ -38,3 +38,4 @@ out/
 
 docker-composer.yml
 src/main/resources/META-INF/persistence.xml
+docs/private
