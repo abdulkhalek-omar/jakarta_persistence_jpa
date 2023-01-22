@@ -40,6 +40,10 @@ public class Company
 		this.id = id;
 	}
 
+	public Company(String name) {
+		this.name = name;
+	}
+
 	public String getName() {
 		return name;
 	}

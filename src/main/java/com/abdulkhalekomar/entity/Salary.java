@@ -49,6 +49,11 @@ public class Salary
 		this.id = id;
 	}
 
+	public Salary(Double currentSalary, boolean activeFlag) {
+		this.currentSalary = currentSalary;
+		this.activeFlag = activeFlag;
+	}
+
 	public Company getCompany() {
 		return company;
 	}
