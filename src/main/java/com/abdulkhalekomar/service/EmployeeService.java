@@ -23,6 +23,9 @@ public class EmployeeService
 		try {
 			entityManager.getTransaction().begin(); // uncomment if not using @Transactional
 			if (employee.getId() == null) {
+				if (employee.getEmployeeProfile() != null) {
+					entityManager.persist(employee.getEmployeeProfile());
+				}
 				entityManager.persist(employee);
 			}
 			else {

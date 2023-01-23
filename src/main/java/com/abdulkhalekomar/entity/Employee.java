@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 
@@ -33,6 +34,10 @@ public class Employee
 	private Salary salary;
 	@Column
 	private Company company;
+
+	@OneToOne(mappedBy = "employee")
+	private EmployeeProfile employeeProfile;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "employee_id")
@@ -106,6 +111,14 @@ public class Employee
 
 	public void setCompany(Company company) {
 		this.company = company;
+	}
+
+	public EmployeeProfile getEmployeeProfile() {
+		return employeeProfile;
+	}
+
+	public void setEmployeeProfile(EmployeeProfile employeeProfile) {
+		this.employeeProfile = employeeProfile;
 	}
 
 	public Long getId() {
