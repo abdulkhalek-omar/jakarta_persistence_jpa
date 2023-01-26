@@ -2,9 +2,11 @@ package com.abdulkhalekomar.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 import java.io.Serializable;
@@ -30,12 +32,28 @@ public class Salary
 	@Column
 	private String title;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Employee employee;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "salary_id")
 	private Long id;
 
 	public Salary() {
+	}
+
+	public Salary(Company company, Integer level, Integer bonusPercentage, Double startingSalary, Double currentSalary, boolean activeFlag, String title, Employee employee,
+					Long id) {
+		this.company = company;
+		this.level = level;
+		this.bonusPercentage = bonusPercentage;
+		this.startingSalary = startingSalary;
+		this.currentSalary = currentSalary;
+		this.activeFlag = activeFlag;
+		this.title = title;
+		this.employee = employee;
+		this.id = id;
 	}
 
 	public Salary(Company company, Integer level, Integer bonusPercentage, Double startingSalary, Double currentSalary, boolean activeFlag, String title, Long id) {

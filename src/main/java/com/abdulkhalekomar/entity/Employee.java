@@ -35,6 +35,7 @@ public class Employee
 	private Integer yearsExperience;
 	@Transient
 	private Double totalCompensation;
+	@Column
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "employee_id")
 	private List<Salary> salaries = new ArrayList<>();
