@@ -5,9 +5,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -24,6 +28,9 @@ public class Company
 	@Column
 	private String country;
 
+	@ManyToMany(mappedBy = "companies")
+	private List<Employee> employees = new ArrayList<>();
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "company_id")
@@ -32,11 +39,12 @@ public class Company
 	public Company() {
 	}
 
-	public Company(String name, String city, String zipcode, String country, Long id) {
+	public Company(String name, String city, String zipcode, String country, List<Employee> employees,  Long id) {
 		this.name = name;
 		this.city = city;
 		this.zipcode = zipcode;
 		this.country = country;
+		this.employees = employees;
 		this.id = id;
 	}
 
@@ -76,6 +84,13 @@ public class Company
 		this.country = country;
 	}
 
+	public List<Employee> getEmployees() {
+		return employees;
+	}
+
+	public void setEmployees(List<Employee> employees) {
+		this.employees = employees;
+	}
 	public Long getId() {
 		return id;
 	}
@@ -83,4 +98,5 @@ public class Company
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 }

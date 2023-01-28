@@ -9,6 +9,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -35,13 +37,15 @@ public class Employee
 	private Integer yearsExperience;
 	@Transient
 	private Double totalCompensation;
+
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@JoinTable(name = "employee_company", joinColumns = @JoinColumn(name = "employee_id"), inverseJoinColumns = @JoinColumn(name = "company_id"))
+	private List<Company> companies = new ArrayList<>();
+
 	@Column
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "employee_id")
 	private List<Salary> salaries = new ArrayList<>();
-	@Column
-	private Company company;
-
 	@OneToOne(mappedBy = "employee")
 	private EmployeeProfile employeeProfile;
 
@@ -53,14 +57,14 @@ public class Employee
 	public Employee() {
 	}
 
-	public Employee(String firstName, String lastName, String experience, Integer yearsExperience, Double totalCompensation, List<Salary> salaries, Company company, Long id) {
+	public Employee(String firstName, String lastName, String experience, Integer yearsExperience, Double totalCompensation, List<Salary> salaries, List<Company> companies, Long id) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.experience = experience;
 		this.yearsExperience = yearsExperience;
 		this.totalCompensation = totalCompensation;
 		this.salaries = salaries;
-		this.company = company;
+		this.companies = companies;
 		this.id = id;
 	}
 
@@ -112,12 +116,12 @@ public class Employee
 		this.salaries = salaries;
 	}
 
-	public Company getCompany() {
-		return company;
+	public List<Company> getCompanies() {
+		return companies;
 	}
 
-	public void setCompany(Company company) {
-		this.company = company;
+	public void setCompanies(List<Company> companies) {
+		this.companies = companies;
 	}
 
 	public EmployeeProfile getEmployeeProfile() {
