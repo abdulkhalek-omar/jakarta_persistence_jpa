@@ -23,7 +23,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "employees")
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Employee
 				implements Serializable {
 
