@@ -20,21 +20,17 @@ public class CompanyService
 	@Override
 	public Optional<Company> save(Company company) {
 		try {
-			entityManager.getTransaction().begin();
 			if (company.getId() == null) {
 				entityManager.persist(company);
 			}
 			else {
 				company = entityManager.merge(company);
 			}
-			entityManager.getTransaction().commit();
-
 			return Optional.of(company);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		return Optional.empty();
 	}
 

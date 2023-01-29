@@ -20,21 +20,17 @@ public class SalaryService
 	@Override
 	public Optional<Salary> save(Salary salary) {
 		try {
-			entityManager.getTransaction().begin();
 			if (salary.getId() == null) {
 				entityManager.persist(salary);
 			}
 			else {
 				salary = entityManager.merge(salary);
 			}
-			entityManager.getTransaction().commit();
-
 			return Optional.of(salary);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		return Optional.empty();
 	}
 

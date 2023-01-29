@@ -1,6 +1,9 @@
 package com.abdulkhalekomar.repository;
 
 import com.abdulkhalekomar.entity.Employee;
+import jakarta.persistence.EntityExistsException;
+import jakarta.persistence.Transient;
+import jakarta.transaction.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -8,6 +11,7 @@ import java.util.Optional;
 
 public interface IEmployeeRepository {
 
+	@Transactional(rollbackOn = IllegalAccessException.class, dontRollbackOn = EntityExistsException.class)
 	Optional<Employee> save(Employee employee);
 
 	Optional<Employee> getEmployeeById(Long id);
