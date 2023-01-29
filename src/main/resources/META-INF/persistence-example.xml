@@ -9,6 +9,9 @@
 		<class>com.abdulkhalekomar.entity.Employee</class>
 		<class>com.abdulkhalekomar.entity.Company</class>
 		<class>com.abdulkhalekomar.entity.Salary</class>
+		<class>com.abdulkhalekomar.entity.EmployeeProfile</class>
+		<class>com.abdulkhalekomar.entity.ActiveEmployee</class>
+		<class>com.abdulkhalekomar.entity.RetiredEmployee</class>
 
 		<properties>
 			<property name="hibernate.jdbc.time_zone" value="UTC"/>
