@@ -50,6 +50,8 @@ public class Main {
 
 		employeeService.deleteEmployee(employee2);
 
+		employeeService.getEmployeeByExperience(3).stream().forEach(e -> System.out.println(e.getLastName()));
+
 		entityManager.close();
 		entityManagerFactory.close();
 	}
