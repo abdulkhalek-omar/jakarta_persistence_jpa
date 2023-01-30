@@ -69,6 +69,9 @@ public class EmployeeService
 
 	@Override
 	public List<Employee> getEmployeeByExperienceNativeQuery(Integer yearsExperience) {
-		return null;
+		Query nativeQuery = entityManager.createNativeQuery("SELECT * FROM Employees WHERE yearsExperience > :yearsExperience ORDER BY lastName", Employee.class);
+		nativeQuery.setParameter("yearsExperience", yearsExperience);
+		List<Employee> employeeList = nativeQuery.getResultList();
+		return employeeList;
 	}
 }
