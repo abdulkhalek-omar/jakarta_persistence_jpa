@@ -16,6 +16,7 @@ public interface ICompanyRepository {
 
 	Optional<Company> getCompanyById(Long id);
 
+	@Transactional(rollbackOn = IllegalAccessException.class, dontRollbackOn = EntityExistsException.class)
 	void deleteCompany(Company Company);
 
 	List<Company> getCompanyBy();

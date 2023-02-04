@@ -15,6 +15,7 @@ public interface ISalaryRepository {
 
 	Optional<Salary> getSalaryById(Long id);
 
+	@Transactional(rollbackOn = IllegalAccessException.class, dontRollbackOn = EntityExistsException.class)
 	void deleteSalary(Salary Salary);
 
 	List<Salary> getSalaryBy();

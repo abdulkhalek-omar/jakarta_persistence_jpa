@@ -1,5 +1,6 @@
 package com.abdulkhalekomar;
 
+import com.abdulkhalekomar.entity.ActiveEmployee;
 import com.abdulkhalekomar.entity.Company;
 import com.abdulkhalekomar.entity.Employee;
 import com.abdulkhalekomar.entity.EmployeeProfile;
@@ -19,9 +20,6 @@ import java.util.Optional;
 
 public class Main {
 
-	@PersistenceContext
-	private EntityManager entityManager;
-
 	public static void main(String[] args) {
 		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -29,36 +27,44 @@ public class Main {
 		CompanyService companyService = new CompanyService(entityManager);
 		SalaryService salaryService = new SalaryService(entityManager);
 
-		//		public Employee(String firstName, String lastName, String experience, Integer yearsExperience, Double totalCompensation, Long id)
-		//		public Company(String name, String city, String zipcode, String country, Long id) {
-		//		public Salary(Company company, Integer level, Integer bonusPercentage, Double startingSalary, Double currentSalary, boolean activeFlag, String title, Long id) {
-		//      public EmployeeProfile(String username, String password, String email, String title, Employee employee)
-		Employee employee1 = new Employee("Omar", "AK", "Java, Kotlin, JPA", 4, 1500.00, generateSalaries(), List.of(new Company("MyCompany")), 1L);
-		employee1.setEmployeeProfile(new EmployeeProfile("Username", "Password", "email@gmail.com", "Software Engineer", employee1, 1L));
-		Employee employee2 = new Employee("Jan", "BK", "C#, C++, .Net Core", 3, 1400.00, List.of(new Salary(54000.00, true)), List.of(new Company("MyCompany")), 2L);
-		Company company = new Company("AK solutions GmbH", "MH", "45467", "DE", List.of(new Employee()), 1L);
-		Salary developerSalary = new Salary(company, 1, 1000, 1200.50, 1500.99, true, "Developer", 1L);
+		ActiveEmployee employee = new ActiveEmployee();
+		employee.setFirstName("Richard");
+		employee.setLastName("King");
+		employee.setYearsExperience(15);
 
-		employeeService.save(employee1);
+		ActiveEmployee employee2 = new ActiveEmployee();
+		employee2.setFirstName("Mary");
+		employee2.setLastName("Johnson");
+		employee2.setYearsExperience(5);
+
+		//set employment history
+		employee.setCompanies(generateCompanies());
+		employee2.setCompanies(generateCompanies());
+
+		//create an EmployeeProfile and associate it to an Employee
+		employee.setEmployeeProfile(new EmployeeProfile("rKing", "password!", "email@email.com", employee, "Software Engineer"));
+		employee2.setEmployeeProfile(new EmployeeProfile("mJohns", "password234", "johndoe@email.com", employee, "Project Manager"));
+
+		//set salaries
+		employee.setSalaries(generateSalaries());
+		employee2.setSalaries(generateSalaries());
+
+		//save Employee
+		employeeService.save(employee);
 		employeeService.save(employee2);
-		companyService.save(company);
-		salaryService.save(developerSalary);
 
-		Optional<Employee> retrievedEmployee = employeeService.getEmployeeById(6L);
-		retrievedEmployee.get().setLastName("Jonson");
-		employeeService.save(retrievedEmployee.get());
+		//retrieve
+		employeeService.getEmployeeByExperienceNativeQuery(10).stream().forEach((e) -> System.out.println(e.getFirstName()));
 
-		employeeService.deleteEmployee(employee2);
-
-		employeeService.getEmployeeByExperience(3).stream().forEach(e -> System.out.println(e.getLastName()));
-		employeeService.getEmployeeByExperienceNativeQuery(2).stream().forEach(e -> System.out.println(e.getLastName()));
+		entityManager.close();
+		entityManagerFactory.close();
 
 		entityManager.close();
 		entityManagerFactory.close();
 	}
 
 	private static List<Salary> generateSalaries() {
-		//		 Double currentSalary, boolean activeFlag) {
+		//create the Salaries and associate to Employee
 		Salary currentSalary = new Salary(34000.00, true);
 		Salary historicalSalary1 = new Salary(10000.00, false);
 		Salary historicalSalary2 = new Salary(500.00, false);
@@ -69,5 +75,16 @@ public class Main {
 		salaries.add(historicalSalary2);
 
 		return salaries;
+	}
+
+	private static List<Company> generateCompanies() {
+		Company company1 = new Company("Facebook", "USA");
+		Company company2 = new Company("Oracle", "USA");
+
+		List<Company> companies = new ArrayList<>();
+		companies.add(company1);
+		companies.add(company2);
+
+		return companies;
 	}
 }

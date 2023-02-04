@@ -39,13 +39,18 @@ public class Company
 	public Company() {
 	}
 
-	public Company(String name, String city, String zipcode, String country, List<Employee> employees,  Long id) {
+	public Company(String name, String city, String zipcode, String country, List<Employee> employees, Long id) {
 		this.name = name;
 		this.city = city;
 		this.zipcode = zipcode;
 		this.country = country;
 		this.employees = employees;
 		this.id = id;
+	}
+
+	public Company(String name, String city) {
+		this.name = name;
+		this.city = city;
 	}
 
 	public Company(String name) {
@@ -91,6 +96,7 @@ public class Company
 	public void setEmployees(List<Employee> employees) {
 		this.employees = employees;
 	}
+
 	public Long getId() {
 		return id;
 	}

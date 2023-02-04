@@ -56,6 +56,14 @@ public class EmployeeProfile
 		this.employee = employee;
 	}
 
+	public EmployeeProfile(String username, String password, String email, Employee employee, String title) {
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.employee = employee;
+		this.title = title;
+	}
+
 	public String getUsername() {
 		return username;
 	}

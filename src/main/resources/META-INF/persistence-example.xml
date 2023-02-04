@@ -23,8 +23,8 @@
 			<property name="jakarta.persistence.schema-generation.database.action" value="drop-and-create"/><!-- create / create-drop / drop-and-create / update -->
 			<property name="jakarta.persistence.sql-load-script-source" value="data.sql"/>
 
-			<!--			<property name="hibernate.show_sql" value="true"/> &lt;!&ndash; Show SQL in console &ndash;&gt;-->
-			<!--			<property name="hibernate.format_sql" value="true"/> &lt;!&ndash; Show SQL formatted &ndash;&gt;-->
+			<property name="hibernate.show_sql" value="true"/> <!-- Show SQL in console -->
+			<property name="hibernate.format_sql" value="true"/> <!-- Show SQL formatted -->
 		</properties>
 
 	</persistence-unit>

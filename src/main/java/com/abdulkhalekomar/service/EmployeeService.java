@@ -19,10 +19,9 @@ public class EmployeeService
 	}
 
 	@Override
-	//	@Transactional
 	public Optional<Employee> save(Employee employee) {
 		try {
-			//			entityManager.getTransaction().begin(); // uncomment if not using @Transactional
+						entityManager.getTransaction().begin(); // uncomment if not using @Transactional
 			if (employee.getId() == null) {
 				if (employee.getEmployeeProfile() != null) {
 					entityManager.persist(employee.getEmployeeProfile());
@@ -32,7 +31,7 @@ public class EmployeeService
 			else {
 				employee = entityManager.merge(employee);
 			}
-			//			entityManager.getTransaction().commit(); // uncomment if not using @Transactional
+						entityManager.getTransaction().commit(); // uncomment if not using @Transactional
 			return Optional.of(employee);
 		}
 		catch (Exception e) {
