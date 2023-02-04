@@ -2,20 +2,15 @@ package com.abdulkhalekomar;
 
 import com.abdulkhalekomar.entity.ActiveEmployee;
 import com.abdulkhalekomar.entity.Company;
-import com.abdulkhalekomar.entity.Employee;
 import com.abdulkhalekomar.entity.EmployeeProfile;
 import com.abdulkhalekomar.entity.Salary;
-import com.abdulkhalekomar.service.CompanyService;
 import com.abdulkhalekomar.service.EmployeeService;
-import com.abdulkhalekomar.service.SalaryService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
-import jakarta.persistence.PersistenceContext;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 
 public class Main {
@@ -24,8 +19,6 @@ public class Main {
 		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		EmployeeService employeeService = new EmployeeService(entityManager);
-		CompanyService companyService = new CompanyService(entityManager);
-		SalaryService salaryService = new SalaryService(entityManager);
 
 		ActiveEmployee employee = new ActiveEmployee();
 		employee.setFirstName("Richard");
@@ -54,10 +47,7 @@ public class Main {
 		employeeService.save(employee2);
 
 		//retrieve
-		employeeService.getEmployeeByExperienceNativeQuery(10).stream().forEach((e) -> System.out.println(e.getFirstName()));
-
-		entityManager.close();
-		entityManagerFactory.close();
+		employeeService.getEmployeeByExperienceNativeQuery(10).forEach((e) -> System.out.println(e.getFirstName()));
 
 		entityManager.close();
 		entityManagerFactory.close();
