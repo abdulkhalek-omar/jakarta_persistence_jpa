@@ -4,6 +4,9 @@ import com.abdulkhalekomar.entity.Employee;
 import com.abdulkhalekomar.repository.IEmployeeRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,7 +24,7 @@ public class EmployeeService
 	@Override
 	public Optional<Employee> save(Employee employee) {
 		try {
-						entityManager.getTransaction().begin(); // uncomment if not using @Transactional
+			entityManager.getTransaction().begin(); // uncomment if not using @Transactional
 			if (employee.getId() == null) {
 				if (employee.getEmployeeProfile() != null) {
 					entityManager.persist(employee.getEmployeeProfile());
@@ -31,7 +34,7 @@ public class EmployeeService
 			else {
 				employee = entityManager.merge(employee);
 			}
-						entityManager.getTransaction().commit(); // uncomment if not using @Transactional
+			entityManager.getTransaction().commit(); // uncomment if not using @Transactional
 			return Optional.of(employee);
 		}
 		catch (Exception e) {
@@ -72,5 +75,17 @@ public class EmployeeService
 		nativeQuery.setParameter("yearsExperience", yearsExperience);
 		List<Employee> employeeList = nativeQuery.getResultList();
 		return employeeList;
+	}
+
+	@Override
+	public List<Employee> getEmployeeByExperienceCriteriaQuery(Integer yearsExperience) {
+		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Employee> criteriaQuery = criteriaBuilder.createQuery(Employee.class);
+		Root<Employee> employeeRoot = criteriaQuery.from(Employee.class);
+
+		List<Employee> employees =
+						entityManager.createQuery(criteriaQuery.select(employeeRoot).where(criteriaBuilder.greaterThan(employeeRoot.get("yearsExperience"), yearsExperience)))
+										.getResultList();
+		return employees;
 	}
 }

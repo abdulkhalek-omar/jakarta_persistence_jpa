@@ -21,4 +21,6 @@ public interface IEmployeeRepository {
 	List<Employee> getEmployeeByExperience(Integer yearsExperience);
 
 	List<Employee> getEmployeeByExperienceNativeQuery(Integer yearsExperience);
+
+	List<Employee> getEmployeeByExperienceCriteriaQuery(Integer yearsExperience);
 }

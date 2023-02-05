@@ -48,6 +48,8 @@ public class Main {
 
 		//retrieve
 		employeeService.getEmployeeByExperienceNativeQuery(10).forEach((e) -> System.out.println(e.getFirstName()));
+		employeeService.getEmployeeByExperienceCriteriaQuery(10).forEach(e -> System.out.println(e.getLastName()));
+
 
 		entityManager.close();
 		entityManagerFactory.close();
