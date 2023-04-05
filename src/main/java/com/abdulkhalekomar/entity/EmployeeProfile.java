@@ -13,102 +13,92 @@ import java.io.Serializable;
 
 @Entity
 public class EmployeeProfile
-				implements Serializable {
+        implements Serializable {
+    private String username;
+    private String password;
+    private String email;
+    private String title;
+    @OneToOne
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "profile_id")
+    private Long id;
 
-	@Column
-	private String username;
+    public EmployeeProfile() {
+    }
 
-	@Column
-	private String password;
+    public EmployeeProfile(String username, String password, String email, String title, Employee employee, Long id) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.title = title;
+        this.employee = employee;
+        this.id = id;
+    }
 
-	@Column
-	private String email;
+    public EmployeeProfile(String username, String password, String email, String title, Employee employee) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.title = title;
+        this.employee = employee;
+    }
 
-	@Column
-	private String title;
+    public EmployeeProfile(String username, String password, String email, Employee employee, String title) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.employee = employee;
+        this.title = title;
+    }
 
-	@OneToOne
-	@JoinColumn(name = "employee_id")
-	private Employee employee;
+    public String getUsername() {
+        return username;
+    }
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "profile_id")
-	private Long id;
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public EmployeeProfile() {
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public EmployeeProfile(String username, String password, String email, String title, Employee employee, Long id) {
-		this.username = username;
-		this.password = password;
-		this.email = email;
-		this.title = title;
-		this.employee = employee;
-		this.id = id;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public EmployeeProfile(String username, String password, String email, String title, Employee employee) {
-		this.username = username;
-		this.password = password;
-		this.email = email;
-		this.title = title;
-		this.employee = employee;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public EmployeeProfile(String username, String password, String email, Employee employee, String title) {
-		this.username = username;
-		this.password = password;
-		this.email = email;
-		this.employee = employee;
-		this.title = title;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public String getUsername() {
-		return username;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public Employee getEmployee() {
+        return employee;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public Employee getEmployee() {
-		return employee;
-	}
-
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

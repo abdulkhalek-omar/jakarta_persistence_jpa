@@ -1,10 +1,14 @@
-| Tool                          | Version |
-|-------------------------------|---------|
-| Jakarta Persistence API (JPA) | 3.1.0   |
-| PostgreSQL                    | 42-5.1  |
-| Gradle                        |         |
-| Postman                       |         |
-| Docker                        |         |
+# Project
+_This project is just a learning project how to work with jakarta persistence jpa_
+
+| Tool                          |
+|-------------------------------|
+| Jakarta Persistence API (JPA) |
+| Hibernate                     |
+| PostgreSQL                    | 
+| Gradle                        |
+| Postman                       |
+| Docker                        |
 
 | Project Requirements | 
 |----------------------|

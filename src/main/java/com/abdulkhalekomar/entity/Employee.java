@@ -25,118 +25,112 @@ import java.util.List;
 @Table(name = "employees")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Employee
-				implements Serializable {
+        implements Serializable {
+    private String firstName;
+    private String lastName;
+    private String experience;
+    private Integer yearsExperience;
+    @Transient
+    private Double totalCompensation;
 
-	@Column
-	private String firstName;
-	@Column
-	private String lastName;
-	@Column
-	private String experience;
-	@Column
-	private Integer yearsExperience;
-	@Transient
-	private Double totalCompensation;
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "employee_company", joinColumns = @JoinColumn(name = "employee_id"), inverseJoinColumns = @JoinColumn(name = "company_id"))
+    private List<Company> companies = new ArrayList<>();
 
-	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinTable(name = "employee_company", joinColumns = @JoinColumn(name = "employee_id"), inverseJoinColumns = @JoinColumn(name = "company_id"))
-	private List<Company> companies = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "employee_id")
+    private List<Salary> salaries = new ArrayList<>();
+    @OneToOne(mappedBy = "employee")
+    private EmployeeProfile employeeProfile;
 
-	@Column
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name = "employee_id")
-	private List<Salary> salaries = new ArrayList<>();
-	@OneToOne(mappedBy = "employee")
-	private EmployeeProfile employeeProfile;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "employee_id")
+    private Long id;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "employee_id")
-	private Long id;
+    public Employee() {
+    }
 
-	public Employee() {
-	}
+    public Employee(String firstName, String lastName, String experience, Integer yearsExperience, Double totalCompensation, List<Salary> salaries, List<Company> companies, Long id) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.experience = experience;
+        this.yearsExperience = yearsExperience;
+        this.totalCompensation = totalCompensation;
+        this.salaries = salaries;
+        this.companies = companies;
+        this.id = id;
+    }
 
-	public Employee(String firstName, String lastName, String experience, Integer yearsExperience, Double totalCompensation, List<Salary> salaries, List<Company> companies, Long id) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.experience = experience;
-		this.yearsExperience = yearsExperience;
-		this.totalCompensation = totalCompensation;
-		this.salaries = salaries;
-		this.companies = companies;
-		this.id = id;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public String getFirstName() {
-		return firstName;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public String getLastName() {
+        return lastName;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    public String getExperience() {
+        return experience;
+    }
 
-	public String getExperience() {
-		return experience;
-	}
+    public void setExperience(String experience) {
+        this.experience = experience;
+    }
 
-	public void setExperience(String experience) {
-		this.experience = experience;
-	}
+    public Integer getYearsExperience() {
+        return yearsExperience;
+    }
 
-	public Integer getYearsExperience() {
-		return yearsExperience;
-	}
+    public void setYearsExperience(Integer yearsExperience) {
+        this.yearsExperience = yearsExperience;
+    }
 
-	public void setYearsExperience(Integer yearsExperience) {
-		this.yearsExperience = yearsExperience;
-	}
+    public Double getTotalCompensation() {
+        return totalCompensation;
+    }
 
-	public Double getTotalCompensation() {
-		return totalCompensation;
-	}
+    public void setTotalCompensation(Double totalCompensation) {
+        this.totalCompensation = totalCompensation;
+    }
 
-	public void setTotalCompensation(Double totalCompensation) {
-		this.totalCompensation = totalCompensation;
-	}
+    public List<Salary> getSalaries() {
+        return salaries;
+    }
 
-	public List<Salary> getSalaries() {
-		return salaries;
-	}
+    public void setSalaries(List<Salary> salaries) {
+        this.salaries = salaries;
+    }
 
-	public void setSalaries(List<Salary> salaries) {
-		this.salaries = salaries;
-	}
+    public List<Company> getCompanies() {
+        return companies;
+    }
 
-	public List<Company> getCompanies() {
-		return companies;
-	}
+    public void setCompanies(List<Company> companies) {
+        this.companies = companies;
+    }
 
-	public void setCompanies(List<Company> companies) {
-		this.companies = companies;
-	}
+    public EmployeeProfile getEmployeeProfile() {
+        return employeeProfile;
+    }
 
-	public EmployeeProfile getEmployeeProfile() {
-		return employeeProfile;
-	}
+    public void setEmployeeProfile(EmployeeProfile employeeProfile) {
+        this.employeeProfile = employeeProfile;
+    }
 
-	public void setEmployeeProfile(EmployeeProfile employeeProfile) {
-		this.employeeProfile = employeeProfile;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

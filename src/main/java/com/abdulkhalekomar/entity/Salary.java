@@ -16,127 +16,119 @@ import java.io.Serializable;
 @Entity
 @Table(name = "salaries")
 public class Salary
-				implements Serializable {
+        implements Serializable {
+    private Company company;
+    private Integer level;
+    private Integer bonusPercentage;
+    private Double startingSalary;
+    private Double currentSalary;
+    private boolean activeFlag;
+    private String title;
 
-	@Column
-	private Company company;
-	@Column
-	private Integer level;
-	@Column
-	private Integer bonusPercentage;
-	@Column
-	private Double startingSalary;
-	@Column
-	private Double currentSalary;
-	@Column
-	private boolean activeFlag;
-	@Column
-	private String title;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "employee_id")
-	private Employee employee;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "salary_id")
+    private Long id;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "salary_id")
-	private Long id;
+    public Salary() {
+    }
 
-	public Salary() {
-	}
+    public Salary(Company company, Integer level, Integer bonusPercentage, Double startingSalary, Double currentSalary, boolean activeFlag, String title, Employee employee,
+                  Long id) {
+        this.company = company;
+        this.level = level;
+        this.bonusPercentage = bonusPercentage;
+        this.startingSalary = startingSalary;
+        this.currentSalary = currentSalary;
+        this.activeFlag = activeFlag;
+        this.title = title;
+        this.employee = employee;
+        this.id = id;
+    }
 
-	public Salary(Company company, Integer level, Integer bonusPercentage, Double startingSalary, Double currentSalary, boolean activeFlag, String title, Employee employee,
-					Long id) {
-		this.company = company;
-		this.level = level;
-		this.bonusPercentage = bonusPercentage;
-		this.startingSalary = startingSalary;
-		this.currentSalary = currentSalary;
-		this.activeFlag = activeFlag;
-		this.title = title;
-		this.employee = employee;
-		this.id = id;
-	}
+    public Salary(Company company, Integer level, Integer bonusPercentage, Double startingSalary, Double currentSalary, boolean activeFlag, String title, Long id) {
+        this.company = company;
+        this.level = level;
+        this.bonusPercentage = bonusPercentage;
+        this.startingSalary = startingSalary;
+        this.currentSalary = currentSalary;
+        this.activeFlag = activeFlag;
+        this.title = title;
+        this.id = id;
+    }
 
-	public Salary(Company company, Integer level, Integer bonusPercentage, Double startingSalary, Double currentSalary, boolean activeFlag, String title, Long id) {
-		this.company = company;
-		this.level = level;
-		this.bonusPercentage = bonusPercentage;
-		this.startingSalary = startingSalary;
-		this.currentSalary = currentSalary;
-		this.activeFlag = activeFlag;
-		this.title = title;
-		this.id = id;
-	}
+    public Salary(Double currentSalary, boolean activeFlag) {
+        this.currentSalary = currentSalary;
+        this.activeFlag = activeFlag;
+    }
 
-	public Salary(Double currentSalary, boolean activeFlag) {
-		this.currentSalary = currentSalary;
-		this.activeFlag = activeFlag;
-	}
+    public Company getCompany() {
+        return company;
+    }
 
-	public Company getCompany() {
-		return company;
-	}
+    public void setCompany(Company company) {
+        this.company = company;
+    }
 
-	public void setCompany(Company company) {
-		this.company = company;
-	}
+    public Integer getLevel() {
+        return level;
+    }
 
-	public Integer getLevel() {
-		return level;
-	}
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
 
-	public void setLevel(Integer level) {
-		this.level = level;
-	}
+    public Integer getBonusPercentage() {
+        return bonusPercentage;
+    }
 
-	public Integer getBonusPercentage() {
-		return bonusPercentage;
-	}
+    public void setBonusPercentage(Integer bonusPercentage) {
+        this.bonusPercentage = bonusPercentage;
+    }
 
-	public void setBonusPercentage(Integer bonusPercentage) {
-		this.bonusPercentage = bonusPercentage;
-	}
+    public Double getStartingSalary() {
+        return startingSalary;
+    }
 
-	public Double getStartingSalary() {
-		return startingSalary;
-	}
+    public void setStartingSalary(Double startingSalary) {
+        this.startingSalary = startingSalary;
+    }
 
-	public void setStartingSalary(Double startingSalary) {
-		this.startingSalary = startingSalary;
-	}
+    public Double getCurrentSalary() {
+        return currentSalary;
+    }
 
-	public Double getCurrentSalary() {
-		return currentSalary;
-	}
+    public void setCurrentSalary(Double currentSalary) {
+        this.currentSalary = currentSalary;
+    }
 
-	public void setCurrentSalary(Double currentSalary) {
-		this.currentSalary = currentSalary;
-	}
+    public boolean isActiveFlag() {
+        return activeFlag;
+    }
 
-	public boolean isActiveFlag() {
-		return activeFlag;
-	}
+    public void setActiveFlag(boolean activeFlag) {
+        this.activeFlag = activeFlag;
+    }
 
-	public void setActiveFlag(boolean activeFlag) {
-		this.activeFlag = activeFlag;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public String getTitle() {
-		return title;
-	}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
 
 
